@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "serve": "npm run dev:h5",
+    "dev:mp-weixin": "cross-env NODE_ENV=development UNI_PLATFORM=mp-weixin vue-cli-service uni-build --watch",
     "build": "npm run build:h5",
     "build:app-plus": "cross-env NODE_ENV=production UNI_PLATFORM=app-plus vue-cli-service uni-build",
     "build:custom": "cross-env NODE_ENV=production uniapp-cli custom",
@@ -21,7 +22,6 @@
     "dev:mp-baidu": "cross-env NODE_ENV=development UNI_PLATFORM=mp-baidu vue-cli-service uni-build --watch",
     "dev:mp-qq": "cross-env NODE_ENV=development UNI_PLATFORM=mp-qq vue-cli-service uni-build --watch",
     "dev:mp-toutiao": "cross-env NODE_ENV=development UNI_PLATFORM=mp-toutiao vue-cli-service uni-build --watch",
-    "dev:mp-weixin": "cross-env NODE_ENV=development UNI_PLATFORM=mp-weixin vue-cli-service uni-build --watch",
     "dev:quickapp": "cross-env NODE_ENV=development UNI_PLATFORM=quickapp vue-cli-service uni-build --watch",
     "info": "node node_modules/@dcloudio/vue-cli-plugin-uni/commands/info.js",
     "serve:quickapp": "node node_modules/@dcloudio/uni-quickapp/bin/serve.js"
@@ -38,7 +38,10 @@
     "@dcloudio/uni-stat": "^2.0.0-26920200403001",
     "core-js": "^3.6.4",
     "flyio": "^0.6.2",
+    "md5": "^2.2.1",
+    "node-sass": "^4.13.1",
     "regenerator-runtime": "^0.12.1",
+    "sass-loader": "^8.0.2",
     "vue": "^2.6.11",
     "vue-class-component": "^6.3.2",
     "vue-property-decorator": "^8.0.0",

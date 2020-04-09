@@ -36,6 +36,7 @@
     "@dcloudio/uni-mp-toutiao": "^2.0.0-26920200403001",
     "@dcloudio/uni-mp-weixin": "^2.0.0-26920200403001",
     "@dcloudio/uni-stat": "^2.0.0-26920200403001",
+    "@dcloudio/uni-ui": "^1.1.9",
     "core-js": "^3.6.4",
     "flyio": "^0.6.2",
     "md5": "^2.2.1",

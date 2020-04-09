@@ -7,6 +7,7 @@
       }
     }
   ],
+  "sitemapLocation": "sitemap.json",
   "tabBar": {
     "color": "#B2B2B2",
     "selectedColor": "#FFCB34",

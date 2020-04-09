@@ -1,12 +1,5 @@
 <template>
-  <view class="content">
-    <custom-modal :visible="modalShow" @close="()=>this.modalShow = false">
-      <div class="white-card">123213</div>
-    </custom-modal>
-    <image class="logo" src="../../static/logo.png" @click="()=>this.modalShow = true" />
-    <view>
-      <text class="title">{{userInfo}}</text>
-    </view>
+  <view class="bg">
   </view>
 </template>
 
@@ -14,23 +7,36 @@
 import Vue from "vue";
 import { mapState } from "vuex";
 import customModal from "@/components/custommodal.vue";
+import tabBar from "@/components/tabbar.vue";
 export default Vue.extend({
   data() {
     return {
       title: "Hello",
-      modalShow: false
+      modalShow: false,
+      list: [
+        { label: "待付款" },
+        { label: "待配送" },
+        { label: "配送中" },
+        { label: "已完成" },
+        { label: "已退款" }
+      ]
     };
   },
   computed: {
     ...mapState(["userInfo"])
   },
   onLoad() {
-    console.log(this.$store)
+    console.log(this.$store);
   },
   components: {
-    customModal
+    customModal,
+    tabBar
   },
-  methods: {}
+  methods: {
+    handleChange(e){
+      console.log(e)
+    }
+  }
 });
 </script>
 

@@ -11,14 +11,6 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
     userInfo: false,
-    houseList: [],
-    staffList: [],
-    showFilter: false,
-    tipShow: false,
-    activeIndex: 0,
-    navBarHeight: 0,
-    titleBarHeight:0,
-    statusBarHeight:0
   },
   actions: {
     userLogin: async ({ state, commit }, payload) => {
@@ -51,12 +43,6 @@ const store = new Vuex.Store({
       if (userInfo) {
         commit('updateUser', userInfo)
       }
-    },
-    setNavbarHeight: async ({ state }) => {
-      let systemInfo = uni.getSystemInfoSync()
-      let platformReg = /ios/i;
-      state.titleBarHeight = platformReg.test(systemInfo.platform) ? 44 : 48;
-      state.statusBarHeight = systemInfo.statusBarHeight;
     },
   },
   mutations: {

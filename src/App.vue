@@ -42,10 +42,4 @@ export default Vue.extend({
 
 <style lang="scss">
 /*每个页面公共css */
-.white-card {
-  background: #fff;
-  border-radius: 20rpx;
-  font-size: 26rpx;
-  box-sizing: border-box;
-}
 </style>

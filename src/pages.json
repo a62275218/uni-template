@@ -1,9 +1,15 @@
 {
   "pages": [
     {
-      "path": "pages/index/index",
+      "path": "pages/index",
       "style": {
-        "navigationBarTitleText": "demo"
+        "navigationBarTitleText": "首页"
+      }
+    },
+    {
+      "path": "pages/my",
+      "style": {
+        "navigationStyle": "custom"
       }
     }
   ],
@@ -13,13 +19,13 @@
     "selectedColor": "#FFCB34",
     "list": [
       {
-        "pagePath": "pages/index/index",
+        "pagePath": "pages/index",
         "iconPath": "",
         "selectedIconPath": "",
         "text": "首页"
       },
       {
-        "pagePath": "pages/index/index",
+        "pagePath": "pages/my",
         "iconPath": "",
         "selectedIconPath": "",
         "text": "我的"

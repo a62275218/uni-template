@@ -75,8 +75,12 @@ $uni-font-size-subtitle: 36upx;
 $uni-color-paragraph: #3f536e; // 文章段落颜色
 $uni-font-size-paragraph: 30upx;
 
-$light-gray-color:#F7F7F7;
-$gray-color:#666666;
+$light-gray-color: #f7f7f7;
+$gray-color: #666666;
+
+page {
+  word-wrap: break-word;
+}
 
 .bg {
   height: 100%;
@@ -84,14 +88,33 @@ $gray-color:#666666;
   min-height: 100vh;
 }
 
-.white-card{
-  background:#fff;
+.white-card {
+  background: #fff;
 }
 
-.section-title{
-  font-weight:bold;
+.section-title {
+  font-weight: bold;
+  font-size: 30rpx;
 }
 
-.gap{
-  height:30rpx;
+.gap {
+  height: 30rpx;
+}
+
+.page-gap {
+  height: 100rpx;
+}
+
+.notfound {
+  padding: 40rpx;
+  text-align: center;
+  color: $gray-color;
+}
+
+.normal-button {
+  background: transparent;
+  margin:0;
+  &::after {
+    border: none;
+  }
 }

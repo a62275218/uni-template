@@ -6,33 +6,14 @@ export default Vue.extend({
   onLaunch() {
   },
   methods: {
-    // bindchange(callback) {
-    //   let globalData = this.globalData;
-    //   console.log(this.globalData )
-    //   Object.keys(globalData).forEach(data => {
-    //     Object.defineProperty(globalData, data, {
-    //       set: value => {
-    //         console.log(`set ${data} to ${value}`);
-    //         console.log(globalData[data])
-    //         callback(globalData)
-    //       },
-    //       get: () => {
-    //         console.log("get");
-    //       }
-    //     });
-    //   });
-    //   callback();
-    // },
-    // setData(globalData) {
-    //   console.log('callback');
-    //   console.log(globalData)
-    // }
+
   },
   onLoad() {
     console.log("load");
   },
   onShow() {
     console.log("App Show");
+    this.$store.dispatch('fetchTotalList')
   },
   onHide() {
     console.log("App Hide");

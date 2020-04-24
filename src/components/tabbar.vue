@@ -14,7 +14,7 @@
 export default {
   props: ["list", "normalColor", "activeColor", "customStyle"],
   created() {
-    this.$emit("change", this.list[this.activeIndex]);
+    this.$emit("change", this.activeIndex);
   },
   data() {
     return {
@@ -38,7 +38,7 @@ export default {
   methods: {
     tabChange(index) {
       this.activeIndex = index;
-      this.$emit("change", this.list[index]);
+      this.$emit("change", index);
     }
   }
 };
@@ -46,10 +46,12 @@ export default {
 
 <style lang="scss">
 .tabbar {
+  background:#fff;
   height: 88rpx;
   display: flex;
   align-items: center;
   .item {
+    text-align:center;
     flex: 1;
     line-height: 88rpx;
   }

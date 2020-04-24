@@ -7,9 +7,39 @@
       }
     },
     {
+      "path": "pages/productlist",
+      "style": {
+        "navigationBarTitleText": "产品列表"
+      }
+    },
+    {
+      "path": "pages/product",
+      "style": {
+        "navigationBarTitleText": "产品详情"
+      }
+    },
+    {
+      "path": "pages/cart",
+      "style": {
+        "navigationBarTitleText": "购物车"
+      }
+    },
+    {
+      "path": "pages/category",
+      "style": {
+        "navigationBarTitleText": "分类"
+      }
+    },
+    {
       "path": "pages/my",
       "style": {
         "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/bill",
+      "style": {
+        "navigationBarTitleText": "订单"
       }
     }
   ],
@@ -20,14 +50,26 @@
     "list": [
       {
         "pagePath": "pages/index",
-        "iconPath": "",
-        "selectedIconPath": "",
+        "iconPath": "/static/shouye.png",
+        "selectedIconPath": "/static/shouye-active.png",
         "text": "首页"
       },
       {
+        "pagePath": "pages/category",
+        "iconPath": "/static/fenlei.png",
+        "selectedIconPath": "/static/fenlei-active.png",
+        "text": "分类"
+      },
+      {
+        "pagePath": "pages/cart",
+        "iconPath": "/static/gouwuche.png",
+        "selectedIconPath": "/static/gouwuche-active.png",
+        "text": "购物车"
+      },
+      {
         "pagePath": "pages/my",
-        "iconPath": "",
-        "selectedIconPath": "",
+        "iconPath": "/static/wode.png",
+        "selectedIconPath": "/static/wode-active.png",
         "text": "我的"
       }
     ]

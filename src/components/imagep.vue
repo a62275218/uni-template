@@ -7,14 +7,13 @@
 <script lang="ts">
 export default {
   data() {
-    return { widthMode: false, customMode: "ere", innerStyle: {} };
+    return { widthMode: false, customMode: "", innerStyle: {} };
   },
   props: ["src", "customStyle"],
   watch: {
     widthMode: {
       immediate: true,
       handler(val) {
-        console.log(val);
         this.customMode = val ? "widthFix" : "heightFix";
       }
     }
@@ -29,9 +28,10 @@ export default {
         .select("#container")
         .boundingClientRect(data => {
           const ratio = data.height / data.width;
-          this.widthMode = (height / width) > ratio;
-          this.innerStyle =
-            (height / width) > ratio ? { width: "100%" } : { height: "100%" };
+          this.widthMode = height / width > ratio;
+          this.innerStyle = this.widthMode
+            ? { width: "100%" }
+            : { height: "100%" };
         })
         .exec();
     }
@@ -42,6 +42,8 @@ export default {
 <style lang="scss">
 .container {
   overflow: hidden;
+  width: 100%;
+  height: 100%;
 }
 image {
   will-change: transform;

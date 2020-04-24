@@ -1,4 +1,4 @@
-const baseUrl = "https://areal.weboostapp.com/api/api/v1/";
+const baseUrl = "https://freshgo123.com/api/public/api/v1/";
 
 export function formatDate(input: string | number) {
   const date = new Date(input);
@@ -44,7 +44,7 @@ export function getIn(obj: any, ...restParams: any) {
 
 export interface IRequestParam {
   data: object;
-  hideLoading?: boolean;
+  loading?: boolean;
   method?:
     | "POST"
     | "OPTIONS"
@@ -60,9 +60,9 @@ export interface IRequestParam {
 }
 
 export function request(url: string, param: IRequestParam) {
-  const { hideLoading } = param;
+  const { loading } = param;
   return new Promise((resolve, reject) => {
-    if (!hideLoading) {
+    if (loading) {
       uni.showLoading();
     }
     try {

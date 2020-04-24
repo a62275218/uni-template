@@ -1,67 +1,102 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-import createLogger from 'vuex/dist/logger'
-import { request } from '@/util'
-import md5 from 'md5'
+import Vue from "vue";
+import Vuex from "vuex";
+import createLogger from "vuex/dist/logger";
+import { request, getIn } from "@/util";
+import md5 from "md5";
 
-const debug = process.env.NODE_ENV !== 'production'
+const debug = process.env.NODE_ENV !== "production";
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 const store = new Vuex.Store({
   state: {
     userInfo: false,
+    productList: [],
+    filterProductList: [],
   },
   actions: {
-    userLogin: async ({ state, commit }, payload) => {
-      const { account, password } = payload
-      if (!account || !password) {
-        uni.showToast({
-          title: "请输入用户名和密码",
-          icon: "none"
-        });
-        return;
-      }
-      const userInfo = await request("loginUser", {
+    fetchProductList: async ({ state, commit }, payload) => {
+      const { keyword, orderBy, subCategoriesId, categoriesId } = payload;
+      const productRes = await request("fetchProductBySth", {
         data: {
-          username: account,
-          password: md5(password)
+          ...payload
         },
-        successMsg: "登录成功",
-        errorMsg: "用户名或密码错误"
+        loading: true,
       });
-      if (userInfo) {
-        commit('updateUser', userInfo)
+      const filterProductList = getIn(productRes, "data");
+      if (filterProductList) {
+        state.filterProductList = filterProductList;
       }
+    },
+    fetchTotalList: async ({ state }) => {
+      const totalProductRes = await request("fetchProductBySth", {
+        data: {},
+      });
+      const productList = getIn(totalProductRes, "data");
+      if (productList) {
+        state.productList = productList;
+      }
+    },
+    userLogin: async ({ state, commit }, payload) => {
+      const { avatarUrl, nickName } = payload;
+      uni.login({
+        async success(res) {
+          if (res.code) {
+            //发起网络请求
+            console.log(res.code);
+            const opendID = await request("wxGetOpenId", {
+              data: { code: res.code },
+              errorMsg: "登录失败",
+              loading: true,
+            });
+            const openid = getIn(opendID, "openid");
+            if (openid) {
+              const userInfo: any = await request("registerUser", {
+                data: { username: nickName, openId: openid },
+                errorMsg: "登录失败",
+                loading: true,
+              });
+              if (userInfo) {
+                userInfo.avatar = avatarUrl;
+                commit("updateUser", userInfo);
+              }
+            }
+          } else {
+            uni.showToast({
+              title: "登录失败",
+              icon: "none",
+            });
+          }
+        },
+      });
     },
     fetchUserInfo: async ({ state, commit }, payload) => {
       const { id } = payload;
       const userInfo = await request("fetchUserByUserId", {
         data: { id },
-        hideLoading: true
-      })
+      });
       if (userInfo) {
-        commit('updateUser', userInfo)
+        commit("updateUser", userInfo);
       }
     },
   },
   mutations: {
     retriveUser: (state) => {
-      const userInfo = uni.getStorageSync('userInfo')
+      const userInfo = uni.getStorageSync("userInfo");
       if (userInfo) {
         state.userInfo = userInfo;
       }
     },
     updateUser: (state, newUser) => {
       state.userInfo = newUser;
-      uni.setStorageSync('userInfo', newUser)
+      uni.setStorageSync("userInfo", newUser);
     },
-    userLogout: state => {
+    userLogout: (state) => {
       state.userInfo = false;
-      uni.removeStorageSync('userInfo')
+      uni.removeStorageSync("userInfo");
     },
   },
-  plugins: debug ? [createLogger()] : []
-})
+  plugins: debug ? [createLogger()] : [],
+});
 
-export default store
+export default store;

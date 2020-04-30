@@ -1,6 +1,9 @@
 <template>
   <div v-if="modalShow" class="mask" @click="closeModal">
-    <div class="center-content" @click.stop :style="customStyle">
+    <div class="bottom-content" v-if="position === 'bottom'" @click.stop :style="customStyle">
+      <slot></slot>
+    </div>
+    <div class="center-content" v-else @click.stop :style="customStyle">
       <slot></slot>
     </div>
   </div>
@@ -13,7 +16,7 @@ export default {
       modalShow: false
     };
   },
-  props: ["visible", "customStyle"],
+  props: ["visible", "customStyle", "position"],
   watch: {
     visible: function(val) {
       this.modalShow = val;
@@ -22,7 +25,7 @@ export default {
   methods: {
     closeModal(): void {
       this.modalShow = false;
-      this.$emit('close');
+      this.$emit("close");
     }
   }
 };
@@ -35,12 +38,20 @@ export default {
   position: fixed;
   width: 100%;
   min-height: 100vh;
+  top:0;
+  left:0;
   .center-content {
     width: 80%;
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate3d(-50%, -50%, 0);
+  }
+  .bottom-content{
+    width: 100%;
+    position: fixed;
+    left:0;
+    bottom:0;
   }
 }
 </style>

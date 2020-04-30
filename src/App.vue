@@ -14,6 +14,7 @@ export default Vue.extend({
   onShow() {
     console.log("App Show");
     this.$store.dispatch('fetchTotalList')
+    this.$store.commit('retriveCart')
   },
   onHide() {
     console.log("App Hide");

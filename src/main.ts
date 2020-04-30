@@ -7,6 +7,8 @@ import skeleton from "@/components/skeleton.vue";
 import searchbar from "@/components/searchbar.vue";
 import productcard from "@/components/productcard.vue";
 import tabbar from "@/components/tabbar.vue";
+import custommodal from "@/components/custommodal.vue";
+import numberbox from "@/components/numberbox.vue";
 
 Vue.config.productionTip = false;
 Vue.prototype.$store = store;
@@ -17,5 +19,7 @@ Vue.component("skeleton", skeleton);
 Vue.component("searchbar", searchbar);
 Vue.component("productcard", productcard);
 Vue.component("tabbar", tabbar);
+Vue.component("custommodal", custommodal);
+Vue.component("numberbox", numberbox);
 
 new App().$mount();

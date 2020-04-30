@@ -13,9 +13,13 @@
       </div>
     </div>
     <div class="gap"></div>
-    <div class="white-card trotting">
+    <div class="white-card trotting" v-if="brodcasts.length">
       <image class="icon" mode="widthFix" src="/static/laba.png" />
-      <div></div>
+      <div class="container">
+        <div class="broadcast">
+          <div v-for="broadcast in brodcasts" :key="broadcast.id">{{broadcast.notifyText}}</div>
+        </div>
+      </div>
     </div>
     <div class="gap"></div>
     <div class="white-card ad-card">
@@ -59,6 +63,7 @@ export default Vue.extend({
     return {
       category: [],
       indexProducts: [],
+      brodcasts: [],
       firstAd: "",
       secondAd: ""
     };
@@ -73,6 +78,7 @@ export default Vue.extend({
     this.fetchHomePageCategories();
     this.fetchAds();
     this.fetchProducts();
+    this.fetchTrotting();
   },
   components: {
     customModal,
@@ -90,6 +96,10 @@ export default Vue.extend({
           url: `/pages/productlist?keyword=${keyword}`
         });
       }
+    },
+    async fetchTrotting() {
+      const brodcasts = await this.$request("fetchNotification", {});
+      this.brodcasts = brodcasts;
     },
     goTagList(id) {
       uni.navigateTo({
@@ -138,12 +148,49 @@ export default Vue.extend({
   }
 }
 
-.trotting{
-  padding:10rpx 20rpx;
-  display:flex;
+@keyframes horizontal {
+  0% {
+    left: 100%;
+  }
+  100% {
+    left: -100%;
+  }
+}
+
+.trotting {
+  padding: 10rpx 20rpx;
+  display: flex;
   align-items: center;
-  .icon{
-    width:40rpx;
+  image{
+    margin-right:20rpx;
+  }
+  .container {
+    flex: 1;
+    overflow: hidden;
+    height:60rpx;
+    position:relative;
+    .broadcast {
+      color: #666666;
+      white-space: nowrap;
+      height: 100%;
+      position: absolute;
+      left: 100%;
+      top: 0;
+      display: flex;
+      font-size: 24rpx;
+      align-items: center;
+      animation: horizontal 15s linear infinite;
+      & div {
+        padding-right:80rpx;
+        &:nth-last-child(1){
+          padding:0;
+        }
+      }
+    }
+  }
+
+  .icon {
+    width: 40rpx;
   }
 }
 

@@ -13,13 +13,14 @@ const store = new Vuex.Store({
     userInfo: false,
     productList: [],
     filterProductList: [],
+    cart: [],
   },
   actions: {
     fetchProductList: async ({ state, commit }, payload) => {
       const { keyword, orderBy, subCategoriesId, categoriesId } = payload;
       const productRes = await request("fetchProductBySth", {
         data: {
-          ...payload
+          ...payload,
         },
         loading: true,
       });
@@ -85,6 +86,54 @@ const store = new Vuex.Store({
       const userInfo = uni.getStorageSync("userInfo");
       if (userInfo) {
         state.userInfo = userInfo;
+      }
+    },
+    retriveCart: (state) => {
+      const cart = uni.getStorageSync("cart") || [];
+      state.cart = cart;
+    },
+    addCart: (state, payload) => {
+      const { product, num } = payload;
+      console.log(state);
+      const existCart = state.cart.find((item) => {
+        return item.product.id === product.id;
+      });
+      if (!existCart) {
+        state.cart.push({ product, num });
+      } else {
+        existCart.num += num;
+      }
+      uni.showToast({
+        title: "添加成功",
+      });
+      uni.setStorageSync("cart", state.cart);
+    },
+    clearCart: (state) => {
+      state.cart = [];
+      uni.removeStorageSync("cart");
+    },
+    changeCart: (state, payload) => {
+      const { index, active, num } = payload;
+      const cart = state.cart;
+      if (typeof active !== "undefined") {
+        cart[index].active = active;
+      }
+      if (typeof num !== "undefined") {
+        cart[index].num = num;
+      }
+      state.cart = cart;
+      uni.setStorageSync("cart", state.cart);
+    },
+    removeFromCart: (state, product) => {
+      let index: number;
+      state.cart.forEach((item, idx) => {
+        if (item.product.id === product.id) {
+          index = idx;
+        }
+      });
+      if (index) {
+        state.cart.splice(index, 1);
+        uni.setStorageSync("cart", state.cart);
       }
     },
     updateUser: (state, newUser) => {

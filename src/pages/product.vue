@@ -33,10 +33,19 @@
         <image src="/static/share.png" style="width:30rpx;margin-right:10rpx" mode="widthFix" />分享
       </div>
       <div class="action">
-        <div>加入购物车</div>
+        <div @click="()=>this.showAddCart = true">加入购物车</div>
         <div>立即购买</div>
       </div>
     </div>
+    <custommodal position="bottom" :visible="showAddCart" @close="this.showAddCart=false">
+      <div class="white-card cartmodal">
+        <div class="control">
+          <div>数量</div>
+          <numberbox :min="0" :max="product.storageNum" @change="handleCartNumChange"></numberbox>
+        </div>
+        <div class="confirm" @click="addToCart">确认</div>
+      </div>
+    </custommodal>
   </div>
 </template>
 
@@ -46,7 +55,9 @@ export default {
   data() {
     return {
       product: false,
-      current: 0
+      current: 0,
+      numToAdd: 0,
+      showAddCart: false
     };
   },
   async onLoad(options) {
@@ -62,7 +73,7 @@ export default {
       });
     } else {
       product = this.productList.find(item => item.id == id);
-      console.log(this.productList)
+      console.log(this.productList);
     }
     this.product = product;
   },
@@ -70,6 +81,20 @@ export default {
     ...mapState(["productList", "userInfo"])
   },
   methods: {
+    addToCart() {
+      if (!this.numToAdd) {
+        return;
+      }
+      this.$store.commit("addCart", {
+        product: this.product,
+        num: this.numToAdd
+      });
+      this.showAddCart = false;
+      // uni.setStorageSync("cart");
+    },
+    handleCartNumChange(val) {
+      this.numToAdd = val;
+    },
     swiperChange(e) {
       const { current } = e.detail;
       this.current = current;
@@ -117,6 +142,7 @@ export default {
   .storage {
     height: 40rpx;
     width: auto;
+    margin-top: 10rpx;
     padding: 4rpx 20rpx;
     border-radius: 20rpx;
     background: rgba(241, 241, 241, 1);
@@ -183,6 +209,19 @@ export default {
         background: #fcd81d;
       }
     }
+  }
+}
+.cartmodal {
+  .control {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 40rpx;
+  }
+  .confirm {
+    background: rgba(252, 216, 29, 1);
+    text-align: center;
+    padding: 20rpx 0;
   }
 }
 </style>

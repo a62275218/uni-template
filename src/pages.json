@@ -41,6 +41,12 @@
       "style": {
         "navigationBarTitleText": "订单"
       }
+    },
+    {
+      "path": "pages/billconfirm",
+      "style": {
+        "navigationBarTitleText": "订单填写"
+      }
     }
   ],
   "sitemapLocation": "sitemap.json",
